@@ -43,12 +43,12 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ route('financeiro') }}">
+                                    <a href="{{ url('financeiro') }}">
                                         Geral
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('relatorio-financeiro') }}">
+                                    <a href="{{ url('relatorio-financeiro') }}">
                                         Relatório Financeiro
                                     </a>
                                 </li>
