@@ -60,14 +60,7 @@ class FinanceiroController extends Controller
 
 //        dd();
 
-
-        $validator = Validator::make(Input::all(), $this->rules);
-        if ( $validator->passes() ) {
-            if (file_exists("blasdasda") {
-                //This is what I would like to do:
-            $validator->addMessage("File Exists and Can not be overwritten");
-        }
-        }
+        
         $this->Financeiro = new Financeiro;
         $this->Financeiro->name = $request->input('name');
         $this->Financeiro->descricao = $request->input('descricao');
