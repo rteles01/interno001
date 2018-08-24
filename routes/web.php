@@ -1,5 +1,6 @@
 <?php
 
+use Yajra\Datatables\Datatables;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,3 +54,12 @@ Route::delete('api/despesa/{id}','TaskController@destroy');
 Route::put('api/despesa','TaskController@store');
 // create new task
 Route::post('api/despesa','FinanceiroController@store');
+
+
+Route::get('despesas', [
+    'as'   => 'Financeiro',
+    'uses' => function () {
+        $users = App\Financeiro::all();
+        return Datatables::of($users)->make();
+    }
+]);
