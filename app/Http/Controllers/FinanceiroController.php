@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Financeiro;
 use Illuminate\Http\Request;
 use EllipseSynergie\ApiResponse\Contracts\Response;
-use App\Task;
+//use App\Financeiro;
 use App\Transformer\TaskTransformer;
 
 
@@ -13,6 +13,8 @@ class FinanceiroController extends Controller
 {
 
     protected $respose;
+
+    protected $guarded = ['id'];
 
     public function __construct(Response $response)
     {
@@ -39,9 +41,11 @@ class FinanceiroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+
+
     }
 
     /**
@@ -51,26 +55,18 @@ class FinanceiroController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)  {
-        if ($request->isMethod('put')) {
-            //Get the task
-            $task = Financeiro::find($request->task_id);
-            if (!$task) {
-                return $this->response->errorNotFound('Task Not Found');
-            }
-        } else {
-            $task = new Financeiro;
-        }
+        $data = $request->all();
+//        dd($request);
 
-        $task->id = $request->input('task_id');
-        $task->name = $request->input('name');
-        $task->description = $request->input('description');
-        $task->user_id =  1; //$request->user()->id;
+//        dd();
+        $this->Financeiro = new Financeiro;
+        $this->Financeiro->name = $request->input('name');
+        $this->Financeiro->descricao = $request->input('descricao');
+        $this->Financeiro->status = $request->input('status');
+        $this->Financeiro->nivel = $request->input('nivel');
+        $this->Financeiro->save();
 
-        if($task->save()) {
-            return $this->response->withItem($task, new  TaskTransformer());
-        } else {
-            return $this->response->errorInternalError('Could not updated/created a task');
-        }
+        return response()->json(['status' =>  200]);
 
     }
 

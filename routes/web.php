@@ -46,10 +46,10 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 /*ROUTES DESPESAS*/
 Route::get('api/despesas','FinanceiroController@index');
-Route::get('api/despesa/{id}','TaskController@show');
+Route::get('api/despesa/{id}','FinanceiroController@show');
 // delete a task
 Route::delete('api/despesa/{id}','TaskController@destroy');
 // update existing task
 Route::put('api/despesa','TaskController@store');
 // create new task
-Route::post('api/despesa','TaskController@store');
+Route::post('api/despesa','FinanceiroController@store');
