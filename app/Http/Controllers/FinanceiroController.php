@@ -8,6 +8,14 @@ use EllipseSynergie\ApiResponse\Contracts\Response;
 //use App\Financeiro;
 use App\Transformer\TaskTransformer;
 use Yajra\Datatables\Datatables;
+use Illuminate\Notifications\Notification;
+//use Notification;
+
+use App\Notifications\InvoiceOrder;
+use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
+
+
 
 class FinanceiroController extends Controller
 {
@@ -15,6 +23,8 @@ class FinanceiroController extends Controller
     protected $respose;
 
     protected $guarded = ['id'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
 
     public function __construct(Response $response)
     {
@@ -31,8 +41,10 @@ class FinanceiroController extends Controller
     {
         //
         //Get all task
-        $tasks = Financeiro::paginate(15);
+        $tasks = Financeiro::paginate(10);
         // Return a collection of $task with pagination
+
+
         return $this->response->withPaginator($tasks, new  TaskTransformer());
     }
 
@@ -60,7 +72,7 @@ class FinanceiroController extends Controller
 
 //        dd();
 
-        
+
         $this->Financeiro = new Financeiro;
         $this->Financeiro->name = $request->input('name');
         $this->Financeiro->descricao = $request->input('descricao');
@@ -68,9 +80,12 @@ class FinanceiroController extends Controller
         $this->Financeiro->nivel = $request->input('nivel');
         $this->Financeiro->save();
 
+
 //        return response()->json(['status' =>  200]);
 
-        return redirect()->back()->with('message', 'Cadastro realizado com sucesso');
+
+//        return redirect()->back()->with('message', 'Cadastro realizado com sucesso');
+//        return redirect()->to(app('url')->previous(). '#addnew');
 
     }
 

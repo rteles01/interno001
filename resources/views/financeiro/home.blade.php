@@ -33,6 +33,8 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="entradas">
+
+                                    <div class="table-responsive">
                                     <table class="datatable mdl-data-table dataTable" cellspacing="0"
                                            width="100%" role="grid" style="width: 100%;">
                                         <thead>
@@ -49,12 +51,17 @@
                                         <tbody>
                                         </tbody>
                                     </table>
+
+                                    </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="saidas">...</div>
                                 {{--<div role="tabpanel" class="tab-pane" id="messages">...</div>--}}
                                 <div role="tabpanel" class="tab-pane" id="settings">...</div>
                                 <div role="tabpanel" class="tab-pane" id="addnew">
 
+                                    @if(Session::has('message'))
+                                        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                                    @endif
                                     <div class="well">
 
                                         {!! Form::open(['url' => '/api/despesa', 'class' => 'form-horizontal']) !!}
@@ -147,6 +154,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 
 <!-- jQuery -->
@@ -167,7 +176,9 @@
             columnDefs: [{
                 targets: [0, 1, 2],
                 className: 'mdl-data-table__cell--non-numeric'
-            }]
+            }],
+
+
         });
     });
 </script>
