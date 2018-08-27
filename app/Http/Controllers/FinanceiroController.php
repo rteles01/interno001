@@ -14,9 +14,11 @@ use Illuminate\Notifications\Notification;
 use App\Notifications\InvoiceOrder;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use Illuminate\Validation\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation;
 
-
-
+//use Illuminate\Validation\Validator;
 class FinanceiroController extends Controller
 {
 
@@ -68,23 +70,36 @@ class FinanceiroController extends Controller
      */
     public function store(Request $request)  {
         $data = $request->all();
-//        dd($request);
-
-//        dd();
 
 
-        $this->Financeiro = new Financeiro;
-        $this->Financeiro->name = $request->input('name');
-        $this->Financeiro->descricao = $request->input('descricao');
-        $this->Financeiro->status = $request->input('status');
-        $this->Financeiro->nivel = $request->input('nivel');
-        $this->Financeiro->save();
+
+        $validator = $this->getValidationFactory()->make($request->all(),
+            [ 'name' => 'required' ]);
 
 
-//        return response()->json(['status' =>  200]);
+        if ($validator->fails()) {
+//            $this->throwValidationException($request, $validator);
+            return redirect()->back()->with('message', 'Por favor preencha todos os campos');
+
+        }else{
+
+            $this->Financeiro = new Financeiro;
+            $this->Financeiro->name = $request->input('name');
+            $this->Financeiro->descricao = $request->input('descricao');
+            $this->Financeiro->status = $request->input('status');
+            $this->Financeiro->nivel = $request->input('nivel');
+            $this->Financeiro->save();
+            return redirect()->back()->with('message', 'Cadastro realizado com sucesso');
+        }
 
 
-//        return redirect()->back()->with('message', 'Cadastro realizado com sucesso');
+
+
+
+
+
+
+
 //        return redirect()->to(app('url')->previous(). '#addnew');
 
     }

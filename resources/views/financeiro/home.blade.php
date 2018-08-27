@@ -34,7 +34,7 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="entradas">
 
-                                    <div class="table-responsive">
+                                    <div  class="table-responsive">
                                     <table class="datatable mdl-data-table dataTable" cellspacing="0"
                                            width="100%" role="grid" style="width: 100%;">
                                         <thead>
